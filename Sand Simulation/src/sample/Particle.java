@@ -3,6 +3,8 @@ package sample;
 import javafx.scene.paint.Color;
 import javafx.scene.canvas.GraphicsContext;
 
+import java.util.ArrayList;
+
 
 public class Particle implements Fallable {
     private int x;
@@ -43,11 +45,20 @@ public class Particle implements Fallable {
         this.color = color;
     }
 
-    public void fall() {
+    public void fall(ArrayList<Particle> pList, int first, int second) {
     }
 
+//    public void swap(Particle p) {
+//        Particle tmp = new Particle();
+//        tmp.setX(p.getX());
+//        tmp.setY(p.getY());
+//        tmp.setColor(p.getColor());
+//
+//        p.setColor();
+//
+//    }
+
     public void draw(GraphicsContext gc) {
-        fall();
         gc.setFill(this.color);
         gc.fillRect(this.x, this.y, PARTICLE_CORNER_SIZE, PARTICLE_CORNER_SIZE);
     }

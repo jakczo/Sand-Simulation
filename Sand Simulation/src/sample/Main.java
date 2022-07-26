@@ -73,7 +73,6 @@ public class Main extends Application {
 
             });
 
-
             primaryStage.setScene(scene);
             primaryStage.setTitle("Sand Simulation");
             primaryStage.show();
