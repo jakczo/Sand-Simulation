@@ -6,19 +6,17 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 
 
-public class Particle implements Fallable {
-    private int x;
-    private int y;
+public abstract class Particle extends Point {
+    private boolean hasFallen;
     final static int PARTICLE_CORNER_SIZE = 25; //in units
     private Color color;
 
-    public Particle() {
-    }
+    public Particle() { }
 
     public Particle(int x, int y, Color color) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
         this.color = color;
+        this.hasFallen = false;
     }
 
     public int getX() {
@@ -37,6 +35,14 @@ public class Particle implements Fallable {
         this.y = y;
     }
 
+    public boolean getHasFallen() {
+        return hasFallen;
+    }
+
+    public void setHasFallen(boolean hasFallen) {
+        this.hasFallen = hasFallen;
+    }
+
     public Color getColor() {
         return color;
     }
@@ -45,18 +51,7 @@ public class Particle implements Fallable {
         this.color = color;
     }
 
-    public void fall(ArrayList<Particle> pList, int first, int second) {
-    }
-
-//    public void swap(Particle p) {
-//        Particle tmp = new Particle();
-//        tmp.setX(p.getX());
-//        tmp.setY(p.getY());
-//        tmp.setColor(p.getColor());
-//
-//        p.setColor();
-//
-//    }
+    public abstract void fall(Particle below);
 
     public void draw(GraphicsContext gc) {
         gc.setFill(this.color);
