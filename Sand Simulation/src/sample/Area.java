@@ -10,24 +10,22 @@ import java.util.HashMap;
 public class Area {
     private  ArrayList <ArrayList<Particle>> areaMatrix;
     final static int AREA_CORNER_SIZE = 20; // in particles
-    private HashMap<Point, Integer> matrixInfo; // need to find specified particle in matrix based on coordinates
+    private HashMap<Point, Point> matrixInfo; // particle coordinates on area to particle coordinates in matrix array
 
     public Area() {
         this.areaMatrix = new ArrayList<>();
+        matrixInfo = new HashMap<Point, Point>();
+
         for (int i = 0; i < AREA_CORNER_SIZE; ++i)
             areaMatrix.add(new ArrayList<Particle>());
 
         for (int i = 0; i < AREA_CORNER_SIZE; ++i) {
             for (int j = 0; j < AREA_CORNER_SIZE; ++j) {
 //               x and y coordinates are being moved by PARTICLE_CORNER_SIZE offset so e.g. 1st particle will be (0*25, 0*25), but second (below) will be (0*25, 1*25) and so on
-                if (i == 0 && j == 0) {
-                    this.areaMatrix.get(i).add(new Sand(i * Particle.PARTICLE_CORNER_SIZE, j * Particle.PARTICLE_CORNER_SIZE));
-                } else {
-                    this.areaMatrix.get(i).add(new Void(i * Particle.PARTICLE_CORNER_SIZE, j * Particle.PARTICLE_CORNER_SIZE));
-                }
-//                ToDo: might be a good idea, instead of creating a new point, referring to an existing point in a particle
-                matrixInfo = new HashMap<Point, Integer>();
-                matrixInfo.put(new Point(i * Particle.PARTICLE_CORNER_SIZE, i * Particle.PARTICLE_CORNER_SIZE), Integer.valueOf(i));
+                this.areaMatrix.get(i).add(new Void(i * Particle.PARTICLE_CORNER_SIZE, j * Particle.PARTICLE_CORNER_SIZE));
+
+//                ToDo: might be a good idea, instead of creating a new point, referring to an existing point §                 in a particle
+                matrixInfo.put(new Point(i * Particle.PARTICLE_CORNER_SIZE, j * Particle.PARTICLE_CORNER_SIZE), new Point(i, j));
             }
         }
     }
@@ -64,26 +62,15 @@ public class Area {
                 pArray.get(i).setHasFallen(false);
     }
 
-    public void addParticle(Particle newParticle) {
-        for (ArrayList<Particle> pArray : this.areaMatrix) {
-//            use of hashmap. Hashmap with key object coordinates like point (x,y) and value of particle's index in the matrix
-
-        }
-    }
-
 //    very alpha version, ToDo: clean it and format it
     public void generateSand(int x, int y) {
-
         int tmpX = x % Particle.PARTICLE_CORNER_SIZE;
         int formattedX = x - tmpX;
-
         int tmpY = y % Particle.PARTICLE_CORNER_SIZE;
         int formattedY = y - tmpY;
 
-        System.out.println("Before: (" + x + ", " + y + ")\nAfter: (" + formattedX + ", " + formattedY + ")");
-
         Point p = new Point(formattedX, formattedY);
-//        ToDo: hashmap cant find proper element, it searches for an object reference instead of coordinates inside the object
-        matrixInfo.get(p);
+        Point coordinates = matrixInfo.get(p);
+        areaMatrix.get(coordinates.getX()).set(coordinates.getY(), new Sand(formattedX, formattedY));
     }
 }

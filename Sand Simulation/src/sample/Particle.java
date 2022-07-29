@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
-
+// ToDo: implement factory design pattern
 public abstract class Particle extends Point {
     private boolean hasFallen;
     final static int PARTICLE_CORNER_SIZE = 25; //in units
