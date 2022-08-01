@@ -10,6 +10,9 @@ public class Sand extends Particle {
     public Sand(int x, int y) {
         super(x, y, Color.ORANGE);
     }
+    public Sand(Sand sand) {
+        super(sand.getX(), sand.getY(), sand.getColor());
+    }
 
     @Override
     public void fall(Particle below) {

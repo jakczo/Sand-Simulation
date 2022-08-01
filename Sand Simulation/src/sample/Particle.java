@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 
 // ToDo: implement factory design pattern
+// ToDo: should have a point, not extend point class
 public abstract class Particle extends Point {
     private boolean hasFallen;
     final static int PARTICLE_CORNER_SIZE = 25; //in units
@@ -18,6 +19,12 @@ public abstract class Particle extends Point {
         this.color = color;
         this.hasFallen = false;
     }
+
+//    public Particle(Particle particle) {
+//        super(particle.getX(), particle.getY());
+//        this.color = particle.getColor();
+//        this.hasFallen = particle.getHasFallen();
+//    }
 
     public int getX() {
         return x;
